@@ -1,0 +1,28 @@
+name: Hello Workflow
+
+on:
+  workflow_dispatch:
+  issues:
+    types: [opened, edited]
+
+jobs:
+  hello-job:
+    runs-on: ubuntu-latest
+
+    env:
+      MY_ENV: "My custom variable"
+
+    steps:
+      - name: List files BEFORE checkout
+        run: ls -l
+
+      - name: Checkout repo
+        uses: actions/checkout@v5
+
+      - name: List files AFTER checkout
+        run: ls -l
+
+      - name: Greet user
+        run: |
+          echo "Hello, $GITHUB_ACTOR!"
+          echo "Env variable: $MY_ENV"
